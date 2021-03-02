@@ -64,6 +64,7 @@ occupation = input("[+] What is your occupation?: ")
 print("Entered {} occupation".format(occupation))
 
 student = Student("Lucho", "Suares", 32, "Uruguay", "professional football player")
+student.presentation()
 
 student.name = name
 student.lastname = lastname
