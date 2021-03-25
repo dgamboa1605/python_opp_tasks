@@ -1,4 +1,4 @@
-from constants import COMPLEX_ERROR
+from constants import COMPLEX_ERROR, STRING_ERROR
 
 class ComplexNumbers:
 
@@ -17,12 +17,18 @@ class ComplexNumbers:
       
     def __add__(self, other):
         if isinstance(other, ComplexNumbers):
-            return ComplexNumbers(self.real + other.real, self.imag + other.imag)
+            if isinstance(self.real, str) or isinstance(self.imag, str) or isinstance(other.real, str) or isinstance(other.imag, str):
+                raise ValueError(STRING_ERROR)
+            else:
+                return ComplexNumbers(self.real + other.real, self.imag + other.imag)
         else:
             raise TypeError(COMPLEX_ERROR)
     
     def __mul__(self, other):
         if isinstance(other, ComplexNumbers):
-            return ComplexNumbers((self.real * other.real) - (self.imag * other.imag), (self.imag * other.real) + (self.real * other.imag))
+            if isinstance(self.real, str) or isinstance(self.imag, str) or isinstance(other.real, str) or isinstance(other.imag, str):
+                raise ValueError(STRING_ERROR)
+            else:
+                return ComplexNumbers((self.real * other.real) - (self.imag * other.imag), (self.imag * other.real) + (self.real * other.imag))
         else:
             raise TypeError(COMPLEX_ERROR)
