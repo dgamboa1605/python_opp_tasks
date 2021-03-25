@@ -1,0 +1,1 @@
+COMPLEX_ERROR = "The argument should be an instance of ComplexNumbers"
