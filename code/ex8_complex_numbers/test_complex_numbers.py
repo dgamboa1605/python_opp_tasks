@@ -16,7 +16,7 @@ class TestComplexNumers(unittest.TestCase):
             b = "test123"
             r = a == b
 
-    def test_str_sum_results(self):
+    def test_sum_str_results(self):
         i = comp(2, 10j)
         k = comp(3, 5j)
         self.assertEqual(str(i+k), "(5+15j)")
@@ -48,7 +48,7 @@ class TestComplexNumers(unittest.TestCase):
             b = comp(1, "2j")
             r = a + b
     
-    def test_str_product_results(self):
+    def test_product_str_results(self):
         i = comp(2, 10j)
         k = comp(3, 5j)
         self.assertEqual(str(i*k), "(56+40j)")
