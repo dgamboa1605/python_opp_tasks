@@ -1,6 +1,6 @@
 import pytest
 
-from complex_numbers import ComplexNumbers as comp
+from code.ex8_complex_numbers.complex_numbers import ComplexNumbers as comp
 
 a = comp(2, 10j)
 b = comp(3, 5j)
@@ -22,6 +22,7 @@ prod_negative_parameteres = (c, d, "(9+5j)")
 prod_zeros_parameters = (f, g, "3")
 
 prod_parameters = [prod_positive_parameters, prod_negative_parameteres, prod_zeros_parameters]
+
 
 class TestComplexNumbersTests:
 

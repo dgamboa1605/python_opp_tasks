@@ -1,4 +1,5 @@
-from base_class import BaseClass
+from code.ex6_length.base_class import BaseClass
+
 
 class StringClass(BaseClass):
 

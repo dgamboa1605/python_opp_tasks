@@ -1,8 +1,9 @@
 import unittest
 
-from complex_numbers import ComplexNumbers as comp
+from code.ex8_complex_numbers.complex_numbers import ComplexNumbers as comp
 
-class TestComplexNumers(unittest.TestCase):
+
+class TestComplexNumbers(unittest.TestCase):
 
     def test_equality(self):
         self.assertTrue(comp(2, 2j) == comp(2, 2j))

@@ -1,15 +1,15 @@
-from typing import Mapping
-from register_person import RegisterPerson
-from customer import Customer
-from manager import Manager
-from banker import Banker
-from credit_advisor import CreditAdvisor
-from systems_administrator import SystemsAdministrator
-from login import Login
+from code.ex9_register_person.register_person import RegisterPerson
+from code.ex9_register_person.customer import Customer
+from code.ex9_register_person.manager import Manager
+from code.ex9_register_person.banker import Banker
+from code.ex9_register_person.credit_advisor import CreditAdvisor
+from code.ex9_register_person.systems_administrator import SystemsAdministrator
+from code.ex9_register_person.login import Login
 
 register = RegisterPerson()
 
 lines = "******************************************"
+
 
 def get_attributes():
     print("\n****Register Employee****\n")
@@ -32,7 +32,7 @@ def sub_menu_options(opt):
             register.register_employee(manager)
         except ValueError as error:
             print("\n{}\n".format(error))
-        
+
     if opt == '2':
         try:
             name, last_name, age, gender, email, phone_number, salary = get_attributes()
@@ -40,7 +40,7 @@ def sub_menu_options(opt):
             register.register_employee(banker)
         except ValueError as error:
             print("\n{}\n".format(error))
-    
+
     if opt == '3':
         try:
             name, last_name, age, gender, email, phone_number, salary = get_attributes()
@@ -48,7 +48,7 @@ def sub_menu_options(opt):
             register.register_employee(credit_advisor)
         except ValueError as error:
             print("\n{}\n".format(error))
-    
+
     if opt == '4':
         try:
             name, last_name, age, gender, email, phone_number, salary = get_attributes()
@@ -56,7 +56,7 @@ def sub_menu_options(opt):
             register.register_employee(systems_administrator)
         except ValueError as error:
             print("\n{}\n".format(error))
-    
+
 
 def sub_menu():
     run = True
@@ -74,6 +74,7 @@ def sub_menu():
         else:
             sub_menu_options(opt)
 
+
 def menu_options(opt):
     if opt == '1':
         print("\n****Register Customer****\n")
@@ -88,13 +89,13 @@ def menu_options(opt):
             register.register_customer(customer)
         except ValueError as error:
             print("\n{}\n".format(error))
-            
+
     if opt == '2':
         sub_menu()
 
     if opt == '3':
         print(register.print_customer())
-    
+
     if opt == '4':
         print(register.print_employee())
 
@@ -124,5 +125,6 @@ def login():
 
     if login.check(user, password):
         menu()
+
 
 login()

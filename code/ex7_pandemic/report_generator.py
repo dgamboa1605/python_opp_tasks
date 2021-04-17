@@ -1,6 +1,7 @@
-from bitacora import Bitacora
+from code.ex7_pandemic.bitacora import Bitacora
 
 bitacora = Bitacora()
+
 
 def get_sicks(people):
     result = 0
@@ -21,72 +22,82 @@ def get_recover(people):
             result += 1
     return result
 
+
 def get_women_sick():
     count = 0
     for i in bitacora.people_sick:
         if i.gender == "Female":
-            count +=1
+            count += 1
     return count
+
 
 def get_man_sick():
     count = 0
     for i in bitacora.people_sick:
         if i.gender == "Male":
-            count +=1
+            count += 1
     return count
+
 
 def get_women_recovered():
     count = 0
     for i in bitacora.people_recovered:
         if i.gender == "Female":
-            count +=1
+            count += 1
     return count
+
 
 def get_man_recovered():
     count = 0
     for i in bitacora.people_recovered:
         if i.gender == "Male":
-            count +=1
+            count += 1
     return count
+
 
 def get_adult_sick():
     count = 0
     for i in bitacora.people_sick:
-        if i.age >= 35 and i.age <= 65:
-            count +=1
+        if 35 <= i.age <= 65:
+            count += 1
     return count
+
 
 def get_young_sick():
     count = 0
     for i in bitacora.people_sick:
-        if i.age >= 18 and i.age <= 34:
-            count +=1
+        if 18 <= i.age <= 34:
+            count += 1
     return count
+
 
 def get_kid_sick():
     count = 0
     for i in bitacora.people_sick:
-        if i.age >= 0 and i.age <= 17:
-            count +=1
+        if 0 <= i.age <= 17:
+            count += 1
     return count
+
 
 def get_adult_recovered():
     count = 0
     for i in bitacora.people_recovered:
-        if i.age >= 35 and i.age <= 65:
-            count +=1
+        if 35 <= i.age <= 65:
+            count += 1
     return count
+
 
 def get_young_recovered():
     count = 0
     for i in bitacora.people_recovered:
-        if i.age >= 18 and i.age <= 34:
-            count +=1
+        if 18 <= i.age <= 34:
+            count += 1
     return count
+
 
 def get_kid_recovered():
     count = 0
     for i in bitacora.people_recovered:
-        if i.age >= 0 and i.age <= 17:
-            count +=1
+        if 0 <= i.age <= 17:
+            count += 1
     return count

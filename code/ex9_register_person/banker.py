@@ -1,4 +1,5 @@
-from employee import Employee
+from code.ex9_register_person.employee import Employee
+
 
 class Banker(Employee):
     def __init__(self, name, last_name, age, gender, email, phone_number, salary, role="Banker"):

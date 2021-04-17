@@ -1,5 +1,6 @@
 import pytest
-from employee import Employee
+
+from code.ex9_register_person.employee import Employee
 
 name = "dennis"
 las_name = "gamboa"
@@ -9,6 +10,7 @@ email = "dennis.gamboa@gmail.com"
 phone_number = "75992625"
 salary = "12000"
 role = "Manager"
+
 
 class TestEmployee:
     def test_name_raise_exception_with_numbers(self):

@@ -1,4 +1,5 @@
-from constants import COMPLEX_ERROR, STRING_ERROR
+from code.ex8_complex_numbers.constants import COMPLEX_ERROR, STRING_ERROR
+
 
 class ComplexNumbers:
 

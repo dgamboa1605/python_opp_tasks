@@ -29,4 +29,3 @@ class Person(object):
     @is_sick.setter
     def is_sick(self, new_value):
         self.__is_sick = new_value
-

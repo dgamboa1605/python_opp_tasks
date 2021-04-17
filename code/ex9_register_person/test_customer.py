@@ -1,5 +1,6 @@
 import pytest
-from customer import Customer
+
+from code.ex9_register_person.customer import Customer
 
 name = "dennis"
 las_name = "Gamboa"
@@ -7,6 +8,7 @@ age = "30"
 gender = "male"
 email = "dennis.gamboa@gmail.com"
 phone_number = "75992625"
+
 
 class TestCustomer:
     def test_name_raise_exception_with_numbers(self):

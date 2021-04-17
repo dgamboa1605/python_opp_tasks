@@ -1,6 +1,6 @@
-import report_generator
+from code.ex7_pandemic import report_generator
+from code.ex7_pandemic.person import Person
 
-from person import Person
 
 class PandemicControl(object):
     def __init__(self, city):
@@ -46,7 +46,6 @@ class PandemicControl(object):
         print(f"The number of adult that are recovered from the sickness is [{adult_recovered}]")
         print(f"The number of young that are recovered from the sickness is [{young_recovered}]")
         print(f"The number of kid that are recovered from the sickness is [{kid_recovered}]")
-
 
         print(self.__people)
 

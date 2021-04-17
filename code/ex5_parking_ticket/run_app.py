@@ -1,8 +1,8 @@
 import time
 
-from .vehicle import Vehicle
-from .parking_lot import ParkingLot
-from .parking_ticket import ParkingTicket
+from code.ex5_parking_ticket.vehicle import Vehicle
+from code.ex5_parking_ticket.parking_lot import ParkingLot
+from code.ex5_parking_ticket.parking_ticket import ParkingTicket
 
 company_name = "--zonePArking--"
 print("======================================================")
