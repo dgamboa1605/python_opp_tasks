@@ -1,32 +1,31 @@
 import csv
 
+from tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report import constants
 from tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.person import Person
 from tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_collector import DataCollector
+from tasks.ex10_pandemic_report.pandemic_reporter.utils import get_csv_path
 
 
-# Need A refactor
 class DataCollectorCsv(DataCollector):
     def __init__(self):
         self.__people = []
+        self.__status_code = 200
         self.__load_data()
 
-    # This function need to return a tuple
-    # (status, message, result) -> (200, "ok", [...])
     def get_patients(self):
-        return self.__people
+        status = constants.POSSIBLE_STATUS_CODES.get(self.__status_code)
+        return self.__status_code, status.get("message"), self.__people
 
     def __load_data(self):
-        with open('src/report.csv', 'r') as file:
-            reader = csv.reader(file)
-            # Reade result
-            # "name, lastname, age, gender"
-            # "name1, lastname1, 23, female"
-            reader = list(reader)
-            header = reader[0]
-            for row in reader[1:]:
-                p_dict = dict(zip(header, row))
-                # TODO: Review KEY's to starize to work with different standards
-                p = Person(p_dict["Id"], p_dict["Name"], p_dict["Last Name"], p_dict["Age"], p_dict["Gender"])
-                # TODO: try to use tother than magic values -> "Positive"
-                p.is_sick = p_dict["Covid"] == 'Positive'
-                self.__people.append(p)
+        try:
+            with open(get_csv_path(), 'r') as file:
+                reader = csv.reader(file)
+                reader = list(reader)
+                header = [h.lower() for h in reader[0]]
+                for row in reader[1:]:
+                    p_dict = dict(zip(header, row))
+                    p = Person(p_dict["id"], p_dict["name"], p_dict["last name"], p_dict["age"], p_dict["gender"])
+                    p.is_sick = constants.POSSIBLE_VALUES_SICK.get(p_dict["covid"].lower())
+                    self.__people.append(p)
+        except IOError:
+            self.__status_code = 404

@@ -22,7 +22,7 @@ class MockResponse(object):
         return result
 
 
-@mock.patch('pandemic_report.data_collector_api.requests.get')
+@mock.patch('tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_collector_api.requests.get')
 def test_get_empty_patients(mock_get):
     mock_get.return_value = MockResponse(json_mode="empty")
     data_collector_api = DataCollectorAPI()
@@ -30,7 +30,7 @@ def test_get_empty_patients(mock_get):
     assert result == (200, "OK", [])
 
 
-@mock.patch('pandemic_report.data_collector_api.requests.get')
+@mock.patch('tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_collector_api.requests.get')
 def test_get_patients(mock_get):
     mock_get.return_value = MockResponse()
     data_collector_api = DataCollectorAPI()
@@ -40,14 +40,15 @@ def test_get_patients(mock_get):
     assert result == (200, "OK", [p])
 
 
-@mock.patch('pandemic_report.data_collector_api', **{'return_value.requests.get': requests.exceptions.ConnectionError()})
+@mock.patch('tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_collector_api',
+            **{'return_value.requests.get': requests.exceptions.ConnectionError()})
 def test_get_patients_connection_error(mock_get):
     with pytest.raises(requests.exceptions.ConnectionError):
         data_collector_api = DataCollectorAPI()
         result = data_collector_api.get_patients()
 
 
-@mock.patch('pandemic_report.data_collector_api.requests.get')
+@mock.patch('tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_collector_api.requests.get')
 def test_get_patients_bad_request(mock_get):
     mock_get.return_value = MockResponse(404)
     data_collector_api = DataCollectorAPI()
@@ -55,7 +56,7 @@ def test_get_patients_bad_request(mock_get):
     assert result == (404, "Not Found", [])
 
 
-@mock.patch('pandemic_report.data_collector_api.requests.get')
+@mock.patch('tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_collector_api.requests.get')
 def test_get_patients_request_timeout(mock_get):
     mock_get.return_value = MockResponse(408)
     data_collector_api = DataCollectorAPI()

@@ -25,6 +25,7 @@ class MockCollector(object):
             self.patients.append(p4)
             self.patients.append(p5)
 
+
 # Other posible solutions to Mock empty values
 # class MockCollectorEmpty(object):
 #     def __init__(self):
@@ -35,7 +36,8 @@ class MockCollector(object):
 #         return self.patients
 
 
-@mock.patch("pandemic_reporter.pandemic_report.data_loader.DataCollectorFactory.get_data_collector_instance")
+@mock.patch("tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_loader."
+            "DataCollectorFactory.get_data_collector_instance")
 def test_load_data_correct_loading(mock_get_collector_instance):
     mock_get_collector_instance.return_value = MockCollector()
     dt = DataLoader()
@@ -43,18 +45,20 @@ def test_load_data_correct_loading(mock_get_collector_instance):
     assert status == True
 
 
-@mock.patch("pandemic_reporter.pandemic_report.data_loader.DataCollectorFactory.get_data_collector_instance")
+@mock.patch("tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_loader."
+            "DataCollectorFactory.get_data_collector_instance")
 def test_load_data_none_collector(mock_get_collector_instance):
     mock_get_collector_instance.return_value = None
     dt = DataLoader()
     (status, error) = dt.load_data()
     assert status == False
-    assert error == "Not Conllector Instance"
+    assert error == "Not Collector Instance"
 
 
-@mock.patch("pandemic_reporter.pandemic_report.data_loader.DataCollectorFactory.get_data_collector_instance")
+@mock.patch("tasks.ex10_pandemic_report.pandemic_reporter.pandemic_report.data_loader."
+            "DataCollectorFactory.get_data_collector_instance")
 def test_load_data_empty_result(mock_get_collector_instance):
     mock_get_collector_instance.return_value = MockCollector("Empty")
     dt = DataLoader()
-    (status, error) = dt.load_data()
+    status, error = dt.load_data()
     assert status == True
