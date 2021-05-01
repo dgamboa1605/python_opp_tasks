@@ -13,9 +13,9 @@ class Backpack:
         self.__items.append(pokemon)
 
     def __str__(self):
-        backpack_str = "Backpack: \n"
+        backpack_str = 'Backpack: \n'
         for item in self.__items:
-            backpack_str += str(item) + "\n"
+            backpack_str += str(item) + '\n'
         return backpack_str
 
     def get_item(self, identifier):

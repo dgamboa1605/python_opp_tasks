@@ -1,7 +1,7 @@
 import random
 
 from tasks.ex11_final_project.pokemon.pikachu import Pikachu
-from tasks.ex11_final_project.utils import print_description, print_help, random_phrases
+from tasks.ex11_final_project.utils import print_description, print_help, RANDOM_PHRASES
 from tasks.ex11_final_project.player import Player
 from tasks.ex11_final_project.map import Map
 from tasks.ex11_final_project.items.pokeball import Pokeball
@@ -16,8 +16,6 @@ pikachu = Pikachu(health=random.randint(0, 400) + 100, power=random.randint(0, 4
 player.backpack.new_item(Pokeball(amount=10))
 player.backpack.new_item(Banana(amount=10))
 player.backpack.add_pokemon(pikachu)
-
-map.draw(player)
 
 while True:
     text_value = input('> ')
@@ -36,4 +34,4 @@ while True:
     elif text_value == 'map':
         map.draw(player)
     else:
-        print(random_phrases[random.randint(0, 8)].format(text_value))
+        print(RANDOM_PHRASES[random.randint(0, 8)].format(text_value))

@@ -6,6 +6,7 @@ from tasks.ex11_final_project.pokemon.pidgeotto import Pidgeotto
 from tasks.ex11_final_project.pokemon.bulbasaur import Bulbasaour
 from tasks.ex11_final_project.pokemon.charmander import Charmander
 from tasks.ex11_final_project.pokemon.pokemon import Pokemon
+from tasks.ex11_final_project.utils import print_possible_attacks
 
 
 class Map:
@@ -35,7 +36,9 @@ class Map:
             while True:
                 pokemon_name = input('> ')
                 pokemon = Map.get_player_pokemon(player, pokemon_name)
-                if pokemon is False:
+                if pokemon_name == 'help':
+                    print(player.backpack)
+                elif pokemon is False:
                     print('you do not have this pokemon, please select a correct pokemon')
                 else:
                     print(
@@ -47,8 +50,9 @@ class Map:
                 print('What attack do you want to use for {}?'.format(pokemon.name))
                 pokemon_attack = input('> ')
                 pokemon_attacks = [i.replace('_', ' ') for i in dir(pokemon) if not i.startswith('__')]
-
-                if pokemon_attack in pokemon_attacks:
+                if pokemon_attack == 'help':
+                    print_possible_attacks()
+                elif pokemon_attack in pokemon_attacks:
                     print('damage inflicted: {}'.format(str(int(pokemon.power / 2))))
                     method = getattr(pokemon, pokemon_attack.replace(' ', '_'))
                     found_pokemon = method(found_pokemon)
@@ -59,25 +63,25 @@ class Map:
                     print('{} does not have this attack'.format(pokemon.name))
 
             while True:
-                print("do you want to throw a pokeball? (y/n) def: y")
-                if input() != "n":
+                print('do you want to throw a pokeball? (y/n) def: y')
+                if input() != 'n':
                     if player.backpack.get_item(1):
                         player.backpack.set_item(1, player.backpack.get_item(1).amount - 1)
                         success = random.randint(0, xp_level)
                         if success < 200000:
                             player.backpack.add_pokemon(found_pokemon)
-                            print("\"Gotcha!\"")
+                            print('Yea you get the pokemon!!\n')
                             break
                         else:
                             print('{} does not want to enter the pokeball'.format(found_pokemon.name))
                     else:
-                        print("You don't have any pokeballs")
+                        print('You do not have any pokeballs')
                         break
                 else:
-                    print("Why didn't you catch the pokemon? Well, maybe next time.")
+                    print('Why did not you catch the pokemon? Well, maybe next time.')
                     break
         else:
-            print("Where do you see a pokemon?")
+            print('Where do you see a pokemon?')
 
     def find_square(self, x, y):
         for square in self.__map_squares:
@@ -104,35 +108,35 @@ class Map:
         return pokemon.get(pokemon_id)
 
     def draw(self, player):
-        print("You are standing in x: " + str(player.x) + " y: " + str(player.y))
-        print("_____________________" + " X = Player")
-        print("│ {0} │ {1} │ {2} │ {3} │ {4} │".format(self.find_square(player.x - 2, player.y + 2),
+        print('You are standing in x: ' + str(player.x) + ' y: ' + str(player.y))
+        print('_____________________' + ' X = Player')
+        print('│ {0} │ {1} │ {2} │ {3} │ {4} │'.format(self.find_square(player.x - 2, player.y + 2),
                                                        self.find_square(player.x - 1, player.y + 2),
                                                        self.find_square(player.x, player.y + 2),
                                                        self.find_square(player.x + 1, player.y + 2),
                                                        self.find_square(player.x + 2,
-                                                                        player.y + 2)) + " T = Small Town")
-        print("│___│___│___│___│___│" + " G = Grass")
-        print("│ {0} │ {1} │ {2} │ {3} │ {4} │".format(self.find_square(player.x - 2, player.y + 1),
+                                                                        player.y + 2)) + ' T = Small Town')
+        print('│___│___│___│___│___│' + ' G = Grass')
+        print('│ {0} │ {1} │ {2} │ {3} │ {4} │'.format(self.find_square(player.x - 2, player.y + 1),
                                                        self.find_square(player.x - 1, player.y + 1),
                                                        self.find_square(player.x, player.y + 1),
                                                        self.find_square(player.x + 1, player.y + 1),
-                                                       self.find_square(player.x + 2, player.y + 1)) + " F = Forest")
-        print("│___│___│___│___│___│" + " H = House")
-        print("│ {0} │ {1} │ {2} │ {3} │ {4} │".format(self.find_square(player.x - 2, player.y),
-                                                       self.find_square(player.x - 1, player.y), "X",
+                                                       self.find_square(player.x + 2, player.y + 1)) + ' F = Forest')
+        print('│___│___│___│___│___│' + ' H = House')
+        print('│ {0} │ {1} │ {2} │ {3} │ {4} │'.format(self.find_square(player.x - 2, player.y),
+                                                       self.find_square(player.x - 1, player.y), 'X',
                                                        self.find_square(player.x + 1, player.y),
-                                                       self.find_square(player.x + 2, player.y)) + " C = Cave")
-        print("│___│___│___│___│___│" + " L = Lake")
-        print("│ {0} │ {1} │ {2} │ {3} │ {4} │".format(self.find_square(player.x - 2, player.y - 1),
+                                                       self.find_square(player.x + 2, player.y)) + ' C = Cave')
+        print('│___│___│___│___│___│' + ' L = Lake')
+        print('│ {0} │ {1} │ {2} │ {3} │ {4} │'.format(self.find_square(player.x - 2, player.y - 1),
                                                        self.find_square(player.x - 1, player.y - 1),
                                                        self.find_square(player.x, player.y - 1),
                                                        self.find_square(player.x + 1, player.y - 1),
                                                        self.find_square(player.x + 2, player.y - 1)))
-        print("│___│___│___│___│___│")
-        print("│ {0} │ {1} │ {2} │ {3} │ {4} │".format(self.find_square(player.x - 2, player.y - 2),
+        print('│___│___│___│___│___│')
+        print('│ {0} │ {1} │ {2} │ {3} │ {4} │'.format(self.find_square(player.x - 2, player.y - 2),
                                                        self.find_square(player.x - 1, player.y - 2),
                                                        self.find_square(player.x, player.y - 2),
                                                        self.find_square(player.x + 1, player.y - 2),
                                                        self.find_square(player.x + 2, player.y - 2)))
-        print("│___│___│___│___│___│")
+        print('│___│___│___│___│___│')

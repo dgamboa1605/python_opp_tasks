@@ -24,4 +24,4 @@ class Pokemon:
         self.__health = new_health
 
     def __str__(self):
-        return str(self.name) + " hp: " + str(self.health) + " att: " + str(self.power)
+        return str(self.name) + ' hp: ' + str(self.health) + ' att: ' + str(self.power)
