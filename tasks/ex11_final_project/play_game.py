@@ -11,7 +11,7 @@ print_description()
 player = Player(0)
 map = Map(10, 10)
 
-pikachu = Pikachu(health=random.randint(0, 400) + 100, power=random.randint(0, 400) + 100)
+pikachu = Pikachu()
 
 player.backpack.new_item(Pokeball(amount=10))
 player.backpack.new_item(Banana(amount=10))
@@ -30,7 +30,10 @@ while True:
         player.go_to(text_value)
         map.draw(player)
     elif text_value == 'catch':
-        map.catch_pokemon(player)
+        if map.get_player_position(player):
+            pokemon = map.get_pokemon_of_player(player)
+            map.get_pokemon_attack(pokemon)
+            map.catch_pokemon(player)
     elif text_value == 'map':
         map.draw(player)
     else:

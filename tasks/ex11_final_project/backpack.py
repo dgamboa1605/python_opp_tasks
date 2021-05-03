@@ -1,9 +1,8 @@
 
 class Backpack:
 
-    def __init__(self, max_size):
+    def __init__(self):
         self.__items = []
-        self.__max_size = max_size
 
     @property
     def items(self):

@@ -7,7 +7,7 @@ class Player:
         self.__identifier = identifier
         self.x = 0
         self.y = 0
-        self.backpack = Backpack(20)
+        self.backpack = Backpack()
 
     def go_to(self, move_to):
         if move_to == 'west':
@@ -18,4 +18,3 @@ class Player:
             self.y -= 1
         if move_to == 'north':
             self.y += 1
-

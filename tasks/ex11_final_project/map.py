@@ -13,6 +13,8 @@ class Map:
     def __init__(self, x_size, y_size):
         self.__x_size = x_size
         self.__y_size = y_size
+        self.found_pokemon = None
+        self.xp_level = None
         self.__map_squares = []
         self.__draw_map = [MapSquare(0), MapSquare(0), MapSquare(0), MapSquare(0), MapSquare(0), MapSquare(0),
                            MapSquare(0), MapSquare(0), MapSquare(0), MapSquare(0), MapSquare(0), MapSquare(0),
@@ -27,61 +29,80 @@ class Map:
                 self.__map_squares[-1].x_pos = x
                 self.__map_squares[-1].y_pos = y
 
-    def catch_pokemon(self, player):
+    @property
+    def draw_map(self):
+        return self.__draw_map
+
+    @property
+    def map_squares(self):
+        return self.__map_squares
+
+    @map_squares.setter
+    def map_squares(self, new_map_squares):
+        self.__map_squares = new_map_squares
+
+    def get_player_position(self, player):
         if self.find_square(player.x, player.y).type == "G":
-            found_pokemon = Map.get_pokemon(random.randint(1, 4))
-            print('{} with health: {} power: {} is in sight'.format(found_pokemon.name, found_pokemon.health,
-                                                                    found_pokemon.power))
-            print('what pokemon do you want to use to battle?')
-            while True:
-                pokemon_name = input('> ')
-                pokemon = Map.get_player_pokemon(player, pokemon_name)
-                if pokemon_name == 'help':
-                    print(player.backpack)
-                elif pokemon is False:
-                    print('you do not have this pokemon, please select a correct pokemon')
-                else:
-                    print(
-                        'you selected {} with health: {} power: {} for battle'.format(pokemon.name, pokemon.health,
-                                                                                      pokemon.power))
-                    break
-
-            while True:
-                print('What attack do you want to use for {}?'.format(pokemon.name))
-                pokemon_attack = input('> ')
-                pokemon_attacks = [i.replace('_', ' ') for i in dir(pokemon) if not i.startswith('__')]
-                if pokemon_attack == 'help':
-                    print_possible_attacks()
-                elif pokemon_attack in pokemon_attacks:
-                    print('damage inflicted: {}'.format(str(int(pokemon.power / 2))))
-                    method = getattr(pokemon, pokemon_attack.replace(' ', '_'))
-                    found_pokemon = method(found_pokemon)
-                    xp_level = found_pokemon.health * found_pokemon.power
-                    print('{} with health: {}'.format(found_pokemon.name, found_pokemon.health))
-                    break
-                else:
-                    print('{} does not have this attack'.format(pokemon.name))
-
-            while True:
-                print('do you want to throw a pokeball? (y/n) def: y')
-                if input() != 'n':
-                    if player.backpack.get_item(1):
-                        player.backpack.set_item(1, player.backpack.get_item(1).amount - 1)
-                        success = random.randint(0, xp_level)
-                        if success < 200000:
-                            player.backpack.add_pokemon(found_pokemon)
-                            print('Yea you get the pokemon!!\n')
-                            break
-                        else:
-                            print('{} does not want to enter the pokeball'.format(found_pokemon.name))
-                    else:
-                        print('You do not have any pokeballs')
-                        break
-                else:
-                    print('Why did not you catch the pokemon? Well, maybe next time.')
-                    break
+            return True
         else:
             print('Where do you see a pokemon?')
+            return False
+
+    def get_pokemon_of_player(self, player):
+        self.found_pokemon = Map.get_pokemon(random.randint(1, 4))
+        print('{} with health: {} power: {} is in sight'.format(self.found_pokemon.name, self.found_pokemon.health,
+                                                                self.found_pokemon.power))
+        print('what pokemon do you want to use to battle?')
+        while True:
+            pokemon_name = input('> ')
+            pokemon = Map.get_player_pokemon(player, pokemon_name)
+            if pokemon_name == 'help':
+                print(player.backpack)
+            elif pokemon is False:
+                print('you do not have this pokemon, please select a correct pokemon')
+            else:
+                print(
+                    'you selected {} with health: {} power: {} for battle'.format(pokemon.name, pokemon.health,
+                                                                                  pokemon.power))
+                break
+        return pokemon
+
+    def get_pokemon_attack(self, pokemon):
+        while True:
+            print('What attack do you want to use for {}?'.format(pokemon.name))
+            pokemon_attack = input('> ')
+            pokemon_attacks = [i.replace('_', ' ') for i in dir(pokemon) if not i.startswith('__')]
+            if pokemon_attack == 'help':
+                print_possible_attacks()
+            elif pokemon_attack in pokemon_attacks:
+                print('damage inflicted: {}'.format(str(int(pokemon.power / 2))))
+                method = getattr(pokemon, pokemon_attack.replace(' ', '_'))
+                self.found_pokemon = method(self.found_pokemon)
+                self.xp_level = self.found_pokemon.health * self.found_pokemon.power
+                print('{} with health: {}'.format(self.found_pokemon.name, self.found_pokemon.health))
+                break
+            else:
+                print('{} does not have this attack'.format(pokemon.name))
+
+    def catch_pokemon(self, player):
+        while True:
+            print('do you want to throw a pokeball? (y/n) def: y')
+            if input() != 'n':
+                if player.backpack.get_item(1):
+                    player.backpack.set_item(1, player.backpack.get_item(1).amount - 1)
+                    success = random.randint(0, self.xp_level)
+                    if success < 200000:
+                        player.backpack.add_pokemon(self.found_pokemon)
+                        print('Yea you get the pokemon!!\n')
+                        break
+                    else:
+                        print('{} does not want to enter the pokeball'.format(self.found_pokemon.name))
+                else:
+                    print('You do not have any pokeballs')
+                    break
+            else:
+                print('Why did not you catch the pokemon? Well, maybe next time.')
+                break
 
     def find_square(self, x, y):
         for square in self.__map_squares:

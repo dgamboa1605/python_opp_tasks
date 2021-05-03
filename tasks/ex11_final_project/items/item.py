@@ -27,4 +27,4 @@ class Item:
         self.__amount = new_amount
 
     def __str__(self):
-        return self.__name + 'Amount: ' + str(self.__amount)
+        return self.name + ' amount: ' + str(self.amount)
